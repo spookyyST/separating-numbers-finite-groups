@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite it as below."
+title: "Binary Separating Patterns in Finite Groups"
+authors:
+  - family-names: Tomilson
+    given-names: Igor
+date-released: 2026-08-18
+repository-code: "https://github.com/spookyyST/separating-numbers-finite-groups"
+license: MIT

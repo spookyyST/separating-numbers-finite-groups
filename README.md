@@ -1,8 +1,13 @@
 # Binary separating patterns in finite groups
 
+[![License: MIT](https://img.shields.io/github/license/spookyyST/separating-numbers-finite-groups)](LICENSE)
+
 This repository contains proof drafts, exact computational certificates, and
 reproducible verification programs for the separating-pattern parameter of
 Kang and Hsieh.
+
+**Primary reference:** M.-H. Kang and Y.-H. Hsieh, *Information and Locality
+in Cayley Graphs*, [arXiv:2608.04608](https://arxiv.org/abs/2608.04608), 2026.
 
 ## Main results in this package
 
@@ -57,6 +62,12 @@ python3 verify_f2_6.py
 This checks the exceptional dimensions \(2,4\) and the explicit dimension-six
 seed for \((C_2)^d\).
 
+Expected output:
+
+```text
+Verified: sep_2(F_2^2) > 2, sep_2(F_2^4) > 4, sep_2(F_2^6) = 6
+```
+
 ```bash
 python3 classify_c3cubed_windows.py
 ```
@@ -69,6 +80,12 @@ python3 verify_abelian_certificate.py c3xc3xc3_size6_certificate.json
 ```
 
 This directly verifies the matching size-six upper-bound certificate.
+
+Expected output:
+
+```text
+Verified c3xc3xc3_size6_certificate.json: 27 distinct words from a window of size 6.
+```
 
 To verify the order-32 certificates, supply paths to a GAP executable and its
 library root:
@@ -95,3 +112,8 @@ python3 verify_order32_certificates.py \
 
 The package does not claim a classification of all finite groups.  In
 particular, \((C_3)^4\) and \((C_5)^3\) are not resolved here.
+
+## License and citation
+
+The code and accompanying materials are released under the [MIT License](LICENSE).
+If you use this repository, please cite it using `CITATION.cff`.
