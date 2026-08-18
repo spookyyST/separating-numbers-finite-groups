@@ -33,9 +33,7 @@ Kang and Hsieh.
 4. Every one of the 51 groups of order 32 has \(\operatorname{sep}_2(G)=5\).
    Explicit certificates are in `order32_sep_certificates.json`.
 
-The elementary-abelian computations and the order-32 certificates were
-independently reproduced by Professor Ming-Hsuan Kang in private
-correspondence.  Literature priority has not yet been established.
+Literature priority has not yet been established.
 
 ## Requirements
 
@@ -65,7 +63,12 @@ python3 classify_c3cubed_windows.py
 
 This reduces all 14,950 normalized five-windows of \((C_3)^3\) to ten
 automorphism orbits and proves each corresponding SAT instance unsatisfiable.
-It also uses `c3xc3xc3_size6_certificate.json` for the matching upper bound.
+
+```bash
+python3 verify_abelian_certificate.py c3xc3xc3_size6_certificate.json
+```
+
+This directly verifies the matching size-six upper-bound certificate.
 
 To verify the order-32 certificates, supply paths to a GAP executable and its
 library root:
@@ -83,6 +86,8 @@ python3 verify_order32_certificates.py \
 - `search_abelian_examples.py`: generic SAT search for selected abelian groups;
 - `search_order32_sep.py`: certificate search for the GAP SmallGroups of order 32;
 - `classify_c3cubed_windows.py`: orbit reduction and SAT proof for \((C_3)^3\);
+- `verify_abelian_certificate.py`: direct verifier for the stored abelian
+  group certificates;
 - `verify_order32_certificates.py`: independent checker for all stored
   order-32 certificates.
 
