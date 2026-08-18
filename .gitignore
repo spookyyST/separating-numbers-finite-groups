@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+
+# Local GAP build artefacts; GAP should be installed outside this repository.
+GNUmakefile
+CITATION
+build/
+config.log
+config.status
+doc/
+libgap.pc
+.tools/
+
+# Separate exploratory project, intentionally outside this repository.
+state_based_arithmetic_concept.md

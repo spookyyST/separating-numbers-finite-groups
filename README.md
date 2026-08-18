@@ -1,0 +1,94 @@
+# Binary separating patterns in finite groups
+
+This repository contains proof drafts, exact computational certificates, and
+reproducible verification programs for the separating-pattern parameter of
+Kang and Hsieh.
+
+## Main results in this package
+
+1. For all cyclic groups \(C_N\),
+   \[
+   \operatorname{sep}_q(C_N)=\lceil\log_q N\rceil.
+   \]
+   See `cyclic_groups_question_7_3_proof_draft.md`.
+
+2. For the elementary abelian binary groups \(V_d=(C_2)^d\),
+   \[
+   \operatorname{sep}_2(V_d)=
+   \begin{cases}
+   3,&d=2,\\
+   5,&d=4,\\
+   d,&\text{otherwise}.
+   \end{cases}
+   \]
+   See `elementary_abelian_2_groups_results.md`.
+
+3. \((C_3)^3\) is a binary counterexample to attainment of the information
+   bound:
+   \[
+   \operatorname{sep}_2((C_3)^3)=6>\lceil\log_2 27\rceil=5.
+   \]
+   See `c3cubed_counterexample.md`.
+
+4. Every one of the 51 groups of order 32 has \(\operatorname{sep}_2(G)=5\).
+   Explicit certificates are in `order32_sep_certificates.json`.
+
+The elementary-abelian computations and the order-32 certificates were
+independently reproduced by Professor Ming-Hsuan Kang in private
+correspondence.  Literature priority has not yet been established.
+
+## Requirements
+
+- Python 3.10 or newer;
+- [PySAT](https://pysathq.github.io/):
+
+  ```bash
+  python3 -m pip install -r requirements.txt
+  ```
+
+- GAP with the SmallGrp library is needed only for the order-32 verification.
+  The commands below assume `gap` is on the PATH and that its library root is
+  supplied explicitly when required.
+
+## Reproduce the finite checks
+
+```bash
+python3 verify_f2_6.py
+```
+
+This checks the exceptional dimensions \(2,4\) and the explicit dimension-six
+seed for \((C_2)^d\).
+
+```bash
+python3 classify_c3cubed_windows.py
+```
+
+This reduces all 14,950 normalized five-windows of \((C_3)^3\) to ten
+automorphism orbits and proves each corresponding SAT instance unsatisfiable.
+It also uses `c3xc3xc3_size6_certificate.json` for the matching upper bound.
+
+To verify the order-32 certificates, supply paths to a GAP executable and its
+library root:
+
+```bash
+python3 verify_order32_certificates.py \
+  --gap /path/to/gap \
+  --gap-root /path/to/gap-root
+```
+
+## Repository map
+
+- `binary_separating_patterns_note.md`: concise research-note draft;
+- `RESEARCH_PACKAGE_OVERVIEW.md`: status and file guide;
+- `search_abelian_examples.py`: generic SAT search for selected abelian groups;
+- `search_order32_sep.py`: certificate search for the GAP SmallGroups of order 32;
+- `classify_c3cubed_windows.py`: orbit reduction and SAT proof for \((C_3)^3\);
+- `verify_order32_certificates.py`: independent checker for all stored
+  order-32 certificates.
+
+## Scope and open problems
+
+The package does not claim a classification of all finite groups.  In
+particular, \((C_3)^4\) and \((C_5)^3\) are not resolved here.  The separate
+file `state_based_arithmetic_concept.md` is an unrelated exploratory project;
+it should not be read as a consequence of the separating-pattern results.
