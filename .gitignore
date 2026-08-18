@@ -10,6 +10,3 @@ config.status
 doc/
 libgap.pc
 .tools/
-
-# Separate exploratory project, intentionally outside this repository.
-state_based_arithmetic_concept.md

@@ -89,6 +89,4 @@ python3 verify_order32_certificates.py \
 ## Scope and open problems
 
 The package does not claim a classification of all finite groups.  In
-particular, \((C_3)^4\) and \((C_5)^3\) are not resolved here.  The separate
-file `state_based_arithmetic_concept.md` is an unrelated exploratory project;
-it should not be read as a consequence of the separating-pattern results.
+particular, \((C_3)^4\) and \((C_5)^3\) are not resolved here.

@@ -115,10 +115,6 @@ For Kang and Hsieh, send only the separating-pattern material:
 5. `verify_f2_6.py` and `classify_c3cubed_windows.py`;
 6. the two certificate files for order 32 and \((C_3)^3\).
 
-Do not attach the separate state-based-arithmetic concept note to that email:
-it is a different project and does not currently supply a theorem about
-separating patterns.
-
 ## 5. Next research priorities
 
 1. Independently audit the \((C_3)^3\) SAT calculation and preserve solver
