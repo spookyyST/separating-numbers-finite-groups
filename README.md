@@ -39,7 +39,13 @@ The current preprint draft is available in [`paper/separating_patterns_preprint_
    \]
    See `c3cubed_counterexample.md`.
 
-4. Every one of the 51 groups of order 32 has \(\operatorname{sep}_2(G)=5\).
+4. \((C_3)^4\) attains its binary counting lower bound:
+   \[
+   \operatorname{sep}_2((C_3)^4)=7.
+   \]
+   See `c3four_exact_result.md` and `c3four_size7_certificate.json`.
+
+5. Every one of the 51 groups of order 32 has \(\operatorname{sep}_2(G)=5\).
    Explicit certificates are in `order32_sep_certificates.json`.
 
 Literature priority has not yet been established.
@@ -81,15 +87,11 @@ automorphism orbits and proves each corresponding SAT instance unsatisfiable.
 
 ```bash
 python3 verify_abelian_certificate.py c3xc3xc3_size6_certificate.json
+python3 verify_abelian_certificate.py c3four_size7_certificate.json
 ```
 
-This directly verifies the matching size-six upper-bound certificate.
-
-Expected output:
-
-```text
-Verified c3xc3xc3_size6_certificate.json: 27 distinct words from a window of size 6.
-```
+These directly verify the stored upper-bound certificates for \((C_3)^3\) and
+\((C_3)^4\).
 
 To verify the order-32 certificates, supply paths to a GAP executable and its
 library root:
@@ -105,18 +107,18 @@ python3 verify_order32_certificates.py \
 - `paper/`: current preprint sources;
 - `binary_separating_patterns_note.md`: concise research-note draft;
 - `RESEARCH_PACKAGE_OVERVIEW.md`: status and file guide;
+- `c3four_exact_result.md`: exact result and certificate description for \((C_3)^4\);
 - `search_abelian_examples.py`: generic SAT search for selected abelian groups;
 - `search_order32_sep.py`: certificate search for the GAP SmallGroups of order 32;
 - `classify_c3cubed_windows.py`: orbit reduction and SAT proof for \((C_3)^3\);
-- `verify_abelian_certificate.py`: direct verifier for the stored abelian
-  group certificates;
-- `verify_order32_certificates.py`: independent checker for all stored
-  order-32 certificates.
+- `verify_abelian_certificate.py`: direct verifier for the stored abelian group certificates;
+- `verify_order32_certificates.py`: independent checker for all stored order-32 certificates.
 
 ## Scope and open problems
 
-The package does not claim a classification of all finite groups.  In
-particular, \((C_3)^4\) and \((C_5)^3\) are not resolved here.
+The package does not claim a classification of all finite groups. In particular,
+\((C_5)^3\) remains unresolved in this project. Structural classification of the
+binary defect is also open.
 
 ## License and citation
 
