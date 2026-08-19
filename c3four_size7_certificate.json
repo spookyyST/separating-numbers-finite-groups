@@ -1,0 +1,19 @@
+{
+  "factors": [3, 3, 3, 3],
+  "order": 81,
+  "window_size": 7,
+  "counting_lower_bound": 7,
+  "window": [0, 27, 9, 3, 1, 36, 30],
+  "f": [
+    1, 1, 1, 0, 1, 1, 0, 0, 0,
+    0, 0, 1, 0, 1, 1, 0, 0, 1,
+    0, 0, 1, 0, 1, 0, 1, 1, 0,
+    1, 1, 1, 1, 1, 0, 0, 0, 1,
+    0, 0, 0, 1, 0, 1, 1, 0, 0,
+    0, 0, 1, 1, 0, 0, 0, 0, 1,
+    1, 0, 1, 0, 1, 0, 1, 1, 1,
+    1, 1, 0, 0, 1, 1, 1, 0, 1,
+    0, 0, 1, 0, 0, 1, 1
+  ],
+  "note": "The certificate was found by heuristic local search and then verified directly. The proof of equality uses only this certificate and the counting lower bound."
+}
