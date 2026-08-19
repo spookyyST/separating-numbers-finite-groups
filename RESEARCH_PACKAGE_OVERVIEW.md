@@ -1,10 +1,10 @@
 # Research package: separating patterns in finite groups
 
-**Status date:** 18 August 2026  
+**Status date:** 20 August 2026  
 **Author:** Igor Tomilson, independent researcher
 
-This file is the entry point for the current research package.  It separates
-proved results, exact computational results, and open conjectures.  Claims of
+This file is the entry point for the current research package. It separates
+proved results, exact computational results, and open conjectures. Claims of
 global novelty remain subject to a literature review and expert feedback.
 
 ## 1. Proven mathematical results
@@ -17,10 +17,7 @@ For every \(q\ge2\) and \(N\ge2\),
 \operatorname{sep}_q(C_N)=\lceil\log_qN\rceil.
 \]
 
-The proof uses cut-down de Bruijn words.  The same note gives the exact
-connected and one-step parameters for the standard directed and undirected
-cyclic Cayley graphs, and explains the connection with the cycle-packing
-parameter \(M_q(m,k)\).
+The proof uses cut-down de Bruijn words.
 
 **Document:** `cyclic_groups_question_7_3_proof_draft.md`.
 
@@ -38,7 +35,7 @@ d,&\text{otherwise}.
 \]
 
 The infinite families follow from an explicit quadratic construction in odd
-dimensions and a two-dimensional lifting lemma.  The cases \(d=2,4,6\) have
+dimensions and a two-dimensional lifting lemma. The cases \(d=2,4,6\) have
 finite reproducible checks.
 
 **Document:** `elementary_abelian_2_groups_results.md`.  
@@ -54,7 +51,7 @@ For all 51 GAP SmallGroups of order 32,
 \operatorname{sep}_2(G)=5.
 \]
 
-Each result has an explicit window and Boolean function certificate.  The
+Each result has an explicit window and Boolean function certificate. The
 counting lower bound is 5, so each certificate proves equality.
 
 **Search and verifier:** `search_order32_sep.py`.  
@@ -71,12 +68,28 @@ For \(G=(C_3)^3\),
 \]
 
 The size-five windows are reduced, by explicit linear automorphisms, from
-14,950 normalized windows to 10 orbits.  Exact SAT instances for those ten
+14,950 normalized windows to 10 orbits. Exact SAT instances for those ten
 representatives are UNSAT; a size-six certificate supplies the upper bound.
 
 **Document:** `c3cubed_counterexample.md`.  
 **Orbit/SAT program:** `classify_c3cubed_windows.py`.  
 **Upper-bound certificate:** `c3xc3xc3_size6_certificate.json`.
+
+### Exact value for \((C_3)^4\)
+
+For \(G=(C_3)^4\),
+
+\[
+\operatorname{sep}_2(G)=7.
+\]
+
+The counting bound is seven because \(2^6<81\le2^7\). The stored size-seven
+certificate produces 81 pairwise distinct translated binary words, so the lower
+bound is attained.
+
+**Document:** `c3four_exact_result.md`.  
+**Certificate:** `c3four_size7_certificate.json`.  
+**Verifier:** `verify_abelian_certificate.py`.
 
 ### Additional positive certificates
 
@@ -91,36 +104,28 @@ The following examples meet their binary counting lower bound:
 \quad \operatorname{sep}_2(C_8^2)=6.
 \]
 
-Certificates are stored in the correspondingly named JSON files.  The
-generic SAT search tool is `search_abelian_examples.py`.
+Certificates are stored in the correspondingly named JSON files. The generic SAT
+search tool is `search_abelian_examples.py`.
 
 ## 3. What is *not* proved
 
-The statement that only \((C_2)^2\) and \((C_2)^4\) have positive binary
-defect is false because \((C_3)^3\) has defect one.
+The statement that only \((C_2)^2\) and \((C_2)^4\) have positive binary defect
+is false because \((C_3)^3\) has defect one.
 
 No classification of all finite groups, all abelian groups, or all elementary
-abelian \(p\)-groups has yet been proved.  In particular, the case
-\((C_3)^4\) remains open in this project; an interrupted bounded SAT search
-does not count as evidence either way.
+abelian \(p\)-groups has yet been proved. The case \((C_5)^3\) remains open in
+this project. No priority claim is made for the new \((C_3)^4\) certificate until
+a broader literature check is completed.
 
-## 4. Recommended external-email bundle
+## 4. Current research priorities
 
-For Kang and Hsieh, send only the separating-pattern material:
-
-1. `RESEARCH_PACKAGE_OVERVIEW.md`;
-2. `cyclic_groups_question_7_3_proof_draft.md`;
-3. `elementary_abelian_2_groups_results.md`;
-4. `c3cubed_counterexample.md`;
-5. `verify_f2_6.py` and `classify_c3cubed_windows.py`;
-6. the two certificate files for order 32 and \((C_3)^3\).
-
-## 5. Next research priorities
-
-1. Independently audit the \((C_3)^3\) SAT calculation and preserve solver
-   logs or proof certificates suitable for a paper.
-2. Search the literature for the equivalent Boolean-function formulation.
-3. Develop symmetry reduction for \((C_3)^4\) before attempting large SAT
-   searches.
-4. Ask Kang and Hsieh whether they recognize the \((C_3)^3\) phenomenon or
-   an equivalent prior result.
+1. Search for or rule out a size-seven binary separating window for \((C_5)^3\).
+2. Look for structural constructions that explain why \((C_3)^4\) attains the
+   counting bound while \((C_3)^3\) does not.
+3. Search the literature for equivalent Boolean-function or translate-code
+   formulations.
+4. Determine whether the defect
+   \[
+   \delta_2(G)=\operatorname{sep}_2(G)-\lceil\log_2|G|\rceil
+   \]
+   can exceed one.
