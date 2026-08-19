@@ -1,0 +1,37 @@
+name: Build preprint PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'paper/**'
+      - '.github/workflows/build-preprint.yml'
+  pull_request:
+    paths:
+      - 'paper/**'
+      - '.github/workflows/build-preprint.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Compile LaTeX preprint
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: separating_patterns_preprint_v1.tex
+          working_directory: paper
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: separating-patterns-preprint-pdf
+          path: paper/separating_patterns_preprint_v1.pdf
+          if-no-files-found: error
