@@ -9,6 +9,10 @@ Kang and Hsieh.
 **Primary reference:** M.-H. Kang and Y.-H. Hsieh, *Information and Locality
 in Cayley Graphs*, [arXiv:2608.04608](https://arxiv.org/abs/2608.04608), 2026.
 
+## Preprint
+
+The current preprint draft is available in [`paper/separating_patterns_preprint_v1.md`](paper/separating_patterns_preprint_v1.md), with LaTeX source in [`paper/separating_patterns_preprint_v1.tex`](paper/separating_patterns_preprint_v1.tex).
+
 ## Main results in this package
 
 1. For all cyclic groups \(C_N\),
@@ -98,6 +102,7 @@ python3 verify_order32_certificates.py \
 
 ## Repository map
 
+- `paper/`: current preprint sources;
 - `binary_separating_patterns_note.md`: concise research-note draft;
 - `RESEARCH_PACKAGE_OVERVIEW.md`: status and file guide;
 - `search_abelian_examples.py`: generic SAT search for selected abelian groups;
