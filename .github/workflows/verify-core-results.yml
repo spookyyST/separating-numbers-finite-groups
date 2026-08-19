@@ -37,3 +37,6 @@ jobs:
 
       - name: Verify C3 fourth-power exact upper-bound certificate
         run: python verify_abelian_certificate.py c3four_size7_certificate.json
+
+      - name: Verify C5 cubed size-eight upper-bound certificate
+        run: python verify_abelian_certificate.py c5cubed_size8_certificate.json
