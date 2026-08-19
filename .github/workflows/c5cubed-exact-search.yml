@@ -1,0 +1,167 @@
+name: Exact C5 cubed size-7 search
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'c5cubed_exact_search.py'
+      - 'classify_c5cubed_windows.py'
+      - 'search_abelian_examples.py'
+      - '.github/workflows/c5cubed-exact-search.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        start:
+          - 0
+          - 100
+          - 200
+          - 300
+          - 400
+          - 500
+          - 600
+          - 700
+          - 800
+          - 900
+          - 1000
+          - 1100
+          - 1200
+          - 1300
+          - 1400
+          - 1500
+          - 1600
+          - 1700
+          - 1800
+          - 1900
+          - 2000
+          - 2100
+          - 2200
+          - 2300
+          - 2400
+          - 2500
+          - 2600
+          - 2700
+          - 2800
+          - 2900
+          - 3000
+          - 3100
+          - 3200
+          - 3300
+          - 3400
+          - 3500
+          - 3600
+          - 3700
+          - 3800
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install SAT dependency
+        run: python -m pip install -r requirements.txt
+
+      - name: Exact SAT search for this chunk
+        run: |
+          mkdir -p c5-search-output
+          python c5cubed_exact_search.py \
+            --start ${{ matrix.start }} \
+            --limit 100 \
+            --status-out c5-search-output/status-${{ matrix.start }}.json \
+            --out c5-search-output/certificate-${{ matrix.start }}.json
+
+      - name: Upload chunk status
+        uses: actions/upload-artifact@v4
+        with:
+          name: c5-status-${{ matrix.start }}
+          path: c5-search-output/status-${{ matrix.start }}.json
+          if-no-files-found: error
+
+      - name: Upload certificate if found
+        if: ${{ hashFiles(format('c5-search-output/certificate-{0}.json', matrix.start)) != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: c5-certificate-${{ matrix.start }}
+          path: c5-search-output/certificate-${{ matrix.start }}.json
+
+  aggregate:
+    needs: search
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all chunk-status artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: c5-status-*
+          path: statuses
+          merge-multiple: true
+
+      - name: Audit coverage and results
+        run: |
+          python - <<'PY'
+          import glob, json, sys
+
+          files = sorted(glob.glob('statuses/status-*.json'))
+          expected = list(range(0, 3900, 100))
+          by_start = {}
+          for path in files:
+              data = json.load(open(path))
+              by_start[data['start']] = data
+
+          missing = [s for s in expected if s not in by_start]
+          if missing:
+              print('INCOMPLETE: missing exact chunk reports:', missing)
+              sys.exit(1)
+
+          sat = [d for d in by_start.values() if d['result'] == 'SAT']
+          if sat:
+              print('A size-7 separator exists; inspect certificate artifact(s).')
+              print(json.dumps(sat, indent=2))
+              sys.exit(0)
+
+          bad = [d for d in by_start.values() if d['result'] not in {'PARTIAL_UNSAT', 'UNSAT'}]
+          if bad:
+              print('INCOMPLETE: unexpected statuses')
+              print(json.dumps(bad, indent=2))
+              sys.exit(1)
+
+          intervals = sorted((d['start'], d['stop']) for d in by_start.values())
+          cursor = 0
+          for a, b in intervals:
+              if a != cursor:
+                  print('INCOMPLETE coverage at', cursor, 'next interval', (a,b))
+                  sys.exit(1)
+              cursor = b
+          if cursor != 3827:
+              print('INCOMPLETE final coverage:', cursor)
+              sys.exit(1)
+
+          summary = {
+              'canonical_window_types': 3827,
+              'covered': [0, 3827],
+              'result': 'UNSAT',
+              'conclusion': 'No size-7 binary separating window exists for (C5)^3.'
+          }
+          open('c5cubed_full_search_summary.json','w').write(json.dumps(summary, indent=2)+'\n')
+          print(json.dumps(summary, indent=2))
+          PY
+
+      - name: Upload audited global summary
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: c5cubed-full-search-summary
+          path: c5cubed_full_search_summary.json
