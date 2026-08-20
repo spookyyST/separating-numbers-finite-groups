@@ -91,6 +91,24 @@ bound is attained.
 **Certificate:** `c3four_size7_certificate.json`.  
 **Verifier:** `verify_abelian_certificate.py`.
 
+### Exact value for \((C_5)^3\)
+
+For \(G=(C_5)^3\),
+
+\[
+\operatorname{sep}_2(G)=7,
+\qquad
+\delta_2(G)=0.
+\]
+
+The counting lower bound is seven because \(2^6<125\le2^7\). The stored
+size-seven certificate produces 125 pairwise distinct translated binary words.
+Its optimal seven-element window has affine rank two.
+
+**Document:** `c5cubed_status.md`.  
+**Certificate:** `c5cubed_size7_certificate.json`.  
+**Verifier:** `verify_abelian_certificate.py`.
+
 ### Additional positive certificates
 
 The following examples meet their binary counting lower bound:
@@ -113,17 +131,18 @@ The statement that only \((C_2)^2\) and \((C_2)^4\) have positive binary defect
 is false because \((C_3)^3\) has defect one.
 
 No classification of all finite groups, all abelian groups, or all elementary
-abelian \(p\)-groups has yet been proved. The case \((C_5)^3\) remains open in
-this project. No priority claim is made for the new \((C_3)^4\) certificate until
-a broader literature check is completed.
+abelian \(p\)-groups has yet been proved. The case \((C_5)^3\) is now resolved
+by an explicit optimal certificate. No priority claim is made for the new
+certificates until a broader literature check is completed.
 
 ## 4. Current research priorities
 
-1. Search for or rule out a size-seven binary separating window for \((C_5)^3\).
-2. Look for structural constructions that explain why \((C_3)^4\) attains the
-   counting bound while \((C_3)^3\) does not.
-3. Search the literature for equivalent Boolean-function or translate-code
+1. Look for structural constructions that explain why \((C_5)^3\) and
+   \((C_3)^4\) attain the counting bound while \((C_3)^3\) does not.
+2. Search the literature for equivalent Boolean-function or translate-code
    formulations.
+3. Search further elementary abelian odd-prime cases for additional positive
+   defect examples.
 4. Determine whether the defect
    \[
    \delta_2(G)=\operatorname{sep}_2(G)-\lceil\log_2|G|\rceil
