@@ -1,65 +1,74 @@
-# Current status of the binary separating number for `(C_5)^3`
+# Exact binary separating number for `(C_5)^3`
 
-Let `G=(C_5)^3`, so `|G|=125`. The binary counting bound is 7.
+Let `G=(C_5)^3`, so `|G|=125`. The binary counting bound is
 
-## Verified upper bound
+\[
+\lceil\log_2 125\rceil=7.
+\]
 
-The file `c5cubed_size8_certificate.json` contains an explicit binary colouring and an eight-element window. The generic direct verifier
+## Exact result
+
+An explicit size-seven certificate is stored in
+`c5cubed_size7_certificate.json`. Its window is
+
+\[
+Y=\{0,5,10,15,25,30,35\}.
+\]
+
+Under the standard identification used by `group_table((5,5,5))`, this is
+
+\[
+\{(0,0,0),(0,1,0),(0,2,0),(0,3,0),(1,0,0),(1,1,0),(1,2,0)\}.
+\]
+
+The generic direct verifier
 
 ```bash
-python3 verify_abelian_certificate.py c5cubed_size8_certificate.json
+python3 verify_abelian_certificate.py c5cubed_size7_certificate.json
 ```
 
-checks that the 125 group elements produce 125 distinct eight-bit observation words. Therefore
+checks that the 125 group elements produce 125 pairwise distinct seven-bit
+observation words. Therefore the counting lower bound is attained:
 
 \[
-7\le \operatorname{sep}_2((C_5)^3)\le 8.
+\boxed{\operatorname{sep}_2((C_5)^3)=7}.
 \]
 
-The only remaining possibilities are 7 and 8.
-
-## Exact reduction of the size-seven search
-
-Every seven-element window can be translated to contain 0. A one-dimensional affine span is impossible because a line in `F_5^3` contains only five points. Hence the affine rank is 2 or 3.
-
-### Rank 3
-
-Choose three nonzero window points forming a basis. A `GL(3,5)` transformation sends them to the standard basis. It therefore suffices initially to consider windows
+Equivalently, the binary defect is
 
 \[
-\{0,e_1,e_2,e_3,a,b,c\}.
+\boxed{\delta_2((C_5)^3)=0}.
 \]
 
-Canonicalization over every basis contained in the six nonzero points gives exactly **3514** `GL(3,5)`-orbits.
+The colouring in the certificate has weight 63. With the coordinate order in
+the stored window, the three missing words from the full seven-cube are
 
-### Rank 2
+```text
+0000000
+0000111
+1111000
+```
 
-The same argument inside a plane reduces to windows
+Their supports have sizes `0,3,4`, in agreement with the near-full-cube
+rigidity constraint.
 
-\[
-\{0,e_1,e_2,a,b,c,d\}\subseteq \mathbb F_5^2.
-\]
+## Structure of the certificate
 
-Canonicalization gives exactly **313** `GL(2,5)`-orbits.
+The seven-element window has affine rank two: it lies in a copy of `(C_5)^2`
+inside `(C_5)^3`. Thus the optimal separator does not require a rank-three
+window.
 
-Thus a complete exact size-seven decision requires only
+This is useful structurally. The ambient group splits into five cosets of the
+plane containing the window, and the certificate can be viewed as five
+25-element observation packets whose union consists of 125 distinct words.
 
-\[
-3514+313=3827
-\]
+## Historical search reduction
 
-canonical window types, rather than billions of raw windows.
+Before the size-seven construction was found, normalized seven-windows were
+reduced to 3514 rank-three and 313 rank-two `GL`-orbits, for 3827 canonical
+window types. Further affine and local correlation reductions were useful for
+search, but they are no longer needed to establish the exact value because the
+explicit size-seven certificate attains the lower bound.
 
-The script `classify_c5cubed_windows.py` reproduces these orbit counts and can SAT-test the canonical representatives exactly. Chunked runs are explicitly reported as partial and do not imply nonexistence.
-
-## Near-full-cube constraint
-
-If a size-seven binary separator exists, its image consists of 125 of the 128 possible seven-bit words. Therefore exactly three words are missing. Because every observation coordinate is a translate of the same Boolean colouring, all seven coordinates have the same weight. Up to complementing the colouring, the missing words have exactly one `1` in each coordinate collectively: their supports partition the seven coordinates.
-
-Consequently, for two selected translates of the `1`-set, their intersection size must be either 31 or 32. Which value occurs is determined by whether the corresponding two coordinates lie in the same missing-word support block.
-
-These constraints are useful for pruning, but by themselves they do not yet decide whether a size-seven separator exists.
-
-## Status
-
-The exact value is not claimed yet. The remaining task is an exhaustive exact SAT decision over the 3827 canonical window types, or a human proof that rules out (or constructs) a size-seven separator.
+The old size-eight certificate remains a valid upper-bound certificate but is
+no longer optimal.

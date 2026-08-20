@@ -58,11 +58,14 @@ case \(q=2\) has the additional exceptional dimension \(d=4\). See
 6. Every one of the 51 groups of order 32 has \(\operatorname{sep}_2(G)=5\).
    Explicit certificates are in `order32_sep_certificates.json`.
 
-7. For \((C_5)^3\), the exact value is currently narrowed to 7 or 8. A verified
-   size-eight certificate is stored in `c5cubed_size8_certificate.json`; the
-   exact size-seven search is reduced to 3827 canonical window types. See
-   `c5cubed_status.md`, `classify_c5cubed_windows.py`, and
-   `c5cubed_exact_search.py`.
+7. \((C_5)^3\) also attains its binary counting lower bound:
+   \[
+   \operatorname{sep}_2((C_5)^3)=7,
+   \qquad \delta_2((C_5)^3)=0.
+   \]
+   An explicit optimal certificate is stored in
+   `c5cubed_size7_certificate.json`. Its seven-element window has affine rank
+   two. See `c5cubed_status.md`.
 
 Literature priority has not yet been established for the new addenda.
 
@@ -104,10 +107,13 @@ automorphism orbits and proves each corresponding SAT instance unsatisfiable.
 ```bash
 python3 verify_abelian_certificate.py c3xc3xc3_size6_certificate.json
 python3 verify_abelian_certificate.py c3four_size7_certificate.json
+python3 verify_abelian_certificate.py c5cubed_size7_certificate.json
 python3 verify_abelian_certificate.py c5cubed_size8_certificate.json
 ```
 
-These directly verify the stored finite upper-bound certificates.
+These directly verify the stored finite certificates. The size-eight
+\((C_5)^3\) certificate is retained as a historical upper bound; the size-seven
+certificate is optimal.
 
 To verify the order-32 certificates, supply paths to a GAP executable and its
 library root:
@@ -123,9 +129,10 @@ python3 verify_order32_certificates.py \
 - `paper/`: current preprint v1 sources;
 - `field_alphabet_elementary_abelian_classification.md`: complete field-sized-alphabet classification;
 - `near_full_cube_rigidity.md`: general structural lemma for near-full optimal binary images;
-- `c5cubed_status.md`: rigorous current status of the \((C_5)^3\) case;
-- `c5cubed_exact_search.py`: strengthened exact SAT search for size seven;
-- `classify_c5cubed_windows.py`: exact symmetry reduction for \((C_5)^3\);
+- `c5cubed_status.md`: exact result for the \((C_5)^3\) case;
+- `c5cubed_size7_certificate.json`: optimal size-seven certificate for \((C_5)^3\);
+- `c5cubed_exact_search.py`: historical strengthened exact SAT search for size seven;
+- `classify_c5cubed_windows.py`: historical symmetry reduction for \((C_5)^3\);
 - `binary_separating_patterns_note.md`: concise research-note draft;
 - `RESEARCH_PACKAGE_OVERVIEW.md`: status and file guide;
 - `c3four_exact_result.md`: exact result and certificate description for \((C_3)^4\);
@@ -137,9 +144,9 @@ python3 verify_order32_certificates.py \
 
 ## Scope and open problems
 
-The package does not claim a classification of all finite groups. In particular,
-\((C_5)^3\) remains unresolved in the binary-alphabet problem. Structural
-classification of the binary defect is also open.
+The package does not claim a classification of all finite groups. The binary
+case \((C_5)^3\) is now resolved by an explicit optimal certificate, but a
+structural classification of the binary defect remains open.
 
 ## License and citation
 
