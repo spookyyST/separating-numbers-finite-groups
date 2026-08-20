@@ -11,9 +11,7 @@ in Cayley Graphs*, [arXiv:2608.04608](https://arxiv.org/abs/2608.04608), 2026.
 
 ## Preprint
 
-The current preprint draft is available in [`paper/separating_patterns_preprint_v1.md`](paper/separating_patterns_preprint_v1.md), with LaTeX source in [`paper/separating_patterns_preprint_v1.tex`](paper/separating_patterns_preprint_v1.tex).
-
-Newer proved addenda are kept separate from preprint v1 until the next audited revision.
+The current preprint draft is available in [`paper/separating_patterns_preprint_v1.md`](paper/separating_patterns_preprint_v1.md), with LaTeX source in [`paper/separating_patterns_preprint_v1.tex`](paper/separating_patterns_preprint_v1.tex). It includes the currently verified exact results.
 
 ## Main results in this package
 
@@ -126,7 +124,7 @@ python3 verify_order32_certificates.py \
 
 ## Repository map
 
-- `paper/`: current preprint v1 sources;
+- `paper/`: current preprint-draft sources;
 - `field_alphabet_elementary_abelian_classification.md`: complete field-sized-alphabet classification;
 - `near_full_cube_rigidity.md`: general structural lemma for near-full optimal binary images;
 - `c5cubed_status.md`: exact result for the \((C_5)^3\) case;

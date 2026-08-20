@@ -1,4 +1,4 @@
-# Separating Patterns in Finite Groups: Exact Families and a Small Counterexample
+# Separating Patterns in Finite Groups: Exact Families and Small Computations
 
 **Igor Tomilson**  
 Independent researcher
@@ -13,7 +13,7 @@ Let \(G\) be a finite group, let \(q\ge 2\), and let \(f:G\to[q]\). For a finite
 The separating number \(\operatorname{sep}_q(G)\) is the minimum size of \(Y\) for
 which \(\Phi_{f,Y}\) is injective for some \(f\).
 
-This note records two exact infinite families and two finite computational results.
+This note records exact infinite families and finite computational results.
 First, for every cyclic group \(C_N\),
 \[
 \operatorname{sep}_q(C_N)=\lceil \log_q N\rceil.
@@ -27,10 +27,17 @@ Second, for the elementary abelian binary groups \(V_d=(C_2)^d\),
 d,&\text{otherwise}.
 \end{cases}
 \]
-We also give the exact computational result
+More generally, for \(E_n(p)=(C_p)^n\) and an alphabet of size \(p^r\), we
+give a complete classification. Finally, we give the exact computational result
 \[
 \operatorname{sep}_2((C_3)^3)=6>
 \lceil\log_2 27\rceil=5,
+\]
+as well as the sharp values
+\[
+\operatorname{sep}_2((C_3)^4)=7,
+\qquad
+\operatorname{sep}_2((C_5)^3)=7,
 \]
 and explicit certificates showing that every one of the 51 groups of order \(32\)
 satisfies
@@ -289,9 +296,85 @@ separating window of size \(d\). Matching upper bounds are also verified.
 
 This completes the proof of Theorem 3.1.
 
-## 4. A binary counterexample in \((C_3)^3\)
+## 4. Prime-power alphabets on elementary abelian groups
+
+Let
+\[
+E_n(p)=(C_p)^n\cong\mathbb F_p^n,
+\qquad q=p^r.
+\]
+Identify the alphabet of size \(q\) with \(\mathbb F_p^r\).
 
 ### Theorem 4.1
+
+For primes \(p\) and integers \(n,r\ge1\),
+\[
+\operatorname{sep}_{p^r}(E_n(p))=
+\begin{cases}
+\lceil n/r\rceil,&p\text{ odd},\\
+3,&p=2,\ r\ge2,\ n=2r,\\
+\lceil n/r\rceil,&p=2,\ r\ge2,\ n\ne2r.
+\end{cases}
+\]
+For \(p=2,r=1\), Theorem 3.1 gives the two exceptional dimensions \(n=2,4\).
+
+### Proof
+
+The counting bound is
+\[
+\operatorname{sep}_{p^r}(E_n(p))\ge\lceil n/r\rceil.
+\]
+Write \(t=\lceil n/r\rceil\).
+
+Suppose first that \(p\) is odd. The case \(t=1\) follows by choosing an
+injective colouring. Otherwise write a state as \((u;z)\), where
+\(u\in\mathbb F_p^r\), and partition the remaining \(n-r\) coordinates into
+\(t-1\) nonempty blocks of size at most \(r\). Put the coordinates of block
+\(i\) into slots \(z_{i,j}\), treating absent slots as zero, and define
+\[
+f_j(u;z)=u_j+\sum_i z_{i,j}^2
+\qquad (1\le j\le r).
+\]
+For each block use the shift adding \(1\) to every coordinate in that block.
+Its translated difference in component \(j\) is \(2z_{i,j}+1\), so all
+\(z\)-coordinates are recovered because \(2\) is invertible. The base colour
+then recovers \(u\). Thus \(t\) observations suffice.
+
+Now let \(p=2\) and \(r\ge2\). If \(t=1\), use an injective colouring. If
+\(t=2\) and \(r<n<2r\), a two-point window partitions \(E_n(2)\) into
+\(2^{n-1}\) pairs. There are \(\binom{2^r}{2}\) unordered pairs of distinct
+colours, enough to assign a different colour pair to every orbit. If \(n=2r\),
+there are \(2^{2r-1}\) orbits, strictly more than
+\(\binom{2^r}{2}\), so two observations are impossible. Identifying
+\(E_{2r}(2)\) with the additive group of \(\mathbb F_{2^r}^2\), the colouring
+\(f(a,b)=ab\) and window \(\{0,e_1,e_2\}\) recover \(b\) and \(a\) from the
+two differences. Hence the exact value is three.
+
+It remains to consider \(t\ge3\). Put \(s=t-1\), \(m=n-r\), and write a
+state as \((u,z)\in\mathbb F_2^r\times\mathbb F_2^m\). Choose coordinate
+directions \(a_1,\ldots,a_s\) in \(z\) as the nonzero window shifts. The
+\(rs\) derivative slots \(D_{a_i}Q_j\) of an \(r\)-bit quadratic map \(Q\)
+will recover \(z\). If \(s\) is even, take
+\[
+Q_1=a_1a_2+a_3a_4+\cdots+a_{s-1}a_s.
+\]
+If \(s\) is odd, use this pairing through \(a_{s-1}\) in \(Q_1\), and add
+\(Q_2=a_1a_s\). These reserve exactly \(s\) derivative slots and recover all
+\(a_i\). There are \(rs-s\) remaining slots, while the remaining \(m-s\)
+coordinates of \(z\) satisfy \(m-s\le rs-s\). Assign each such coordinate
+\(w\) to a distinct unreserved slot \((i,j)\) and add \(a_iw\) to \(Q_j\).
+Its derivative gives \(w\), possibly plus an already recovered \(a_i\). Thus
+all of \(z\) is recovered. Finally
+\[
+f(u,z)=u+Q(z)
+\]
+with window \(\{0,a_1,\ldots,a_s\}\) separates the group: the differences
+recover \(z\), and the base colour recovers \(u\). This attains the counting
+bound and completes the proof. \(\square\)
+
+## 5. Binary computations in odd characteristic
+
+### Theorem 5.1
 
 For
 \[
@@ -345,11 +428,30 @@ pairwise distinct. Therefore
 \]
 \(\square\)
 
-## 5. Groups of order 32
+### Theorem 5.2
+
+The following two groups attain their binary counting bounds:
+\[
+\boxed{\operatorname{sep}_2((C_3)^4)=7},
+\qquad
+\boxed{\operatorname{sep}_2((C_5)^3)=7}.
+\]
+
+### Computational proof
+
+The lower bounds are respectively seven, since \(2^6<81\le2^7\), and seven,
+since \(2^6<125\le2^7\). The repository stores explicit Boolean colourings and
+seven-element windows in c3four_size7_certificate.json and
+c5cubed_size7_certificate.json. The generic direct verifier checks that the
+translated observation words are pairwise distinct: 81 words in the first case
+and 125 in the second. Thus both upper bounds equal the counting lower bounds.
+\(\square\)
+
+## 6. Groups of order 32
 
 There are 51 groups of order \(32\) in the GAP SmallGroups library.
 
-### Proposition 5.1
+### Proposition 6.1
 
 For every group \(G\) of order \(32\),
 \[
@@ -380,13 +482,15 @@ and checks directly that the 32 translated words are pairwise distinct. Hence
 Equality follows.
 \(\square\)
 
-## 6. Reproducibility
+## 7. Reproducibility
 
 The repository contains:
 
 - `verify_f2_6.py`, for the finite cases \(d=2,4,6\);
 - `classify_c3cubed_windows.py`, for the \(GL(3,3)\)-orbit reduction and SAT test;
 - `c3xc3xc3_size6_certificate.json`, for the size-six upper bound;
+- `c3four_size7_certificate.json` and `c5cubed_size7_certificate.json`, for
+  the two sharp seven-position certificates;
 - `order32_sep_certificates.json`, for all 51 groups of order 32;
 - `verify_order32_certificates.py`, an independent checker using GAP;
 - `search_abelian_examples.py`, a generic SAT search tool.
@@ -394,28 +498,18 @@ The repository contains:
 The generic search tool treats an exhausted bounded search as inconclusive rather
 than as a proof of nonexistence.
 
-The principal computational results were independently reproduced by Ming-Hsuan Kang.
+Ming-Hsuan Kang independently reproduced the original core computational package.
 
-## 7. Open problems
+## 8. Open problems
 
-1. Determine
-   \[
-   \operatorname{sep}_2((C_3)^4).
-   \]
-
-2. Determine
-   \[
-   \operatorname{sep}_2((C_5)^3).
-   \]
-
-3. Classify finite groups \(G\) satisfying
+1. Classify finite groups \(G\) satisfying
    \[
    \operatorname{sep}_2(G)
    =
    \lceil\log_2|G|\rceil.
    \]
 
-4. Determine how large the defect
+2. Determine how large the defect
    \[
    \delta_q(G)
    =
@@ -425,7 +519,7 @@ The principal computational results were independently reproduced by Ming-Hsuan 
    \]
    can be.
 
-5. Find structural conditions forcing
+3. Find structural conditions forcing
    \[
    \delta_q(G)=0.
    \]
@@ -438,7 +532,7 @@ does not force positive defect.
 
 I thank Ming-Hsuan Kang and Yu-Hsuan Hsieh for helpful correspondence concerning
 their separating-pattern parameter. I also thank Ming-Hsuan Kang for independently
-reproducing the main computational results in the accompanying package.
+reproducing the original core computational package.
 
 ## References
 
