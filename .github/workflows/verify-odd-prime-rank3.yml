@@ -1,0 +1,45 @@
+name: Verify odd-prime rank-3 certificates
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'c7cubed_size9_certificate.json'
+      - 'c11cubed_optimal_certificate.json'
+      - 'c13cubed_optimal_certificate.json'
+      - 'c17cubed_optimal_certificate.json'
+      - 'verify_abelian_certificate.py'
+      - '.github/workflows/verify-odd-prime-rank3.yml'
+  pull_request:
+    paths:
+      - 'c7cubed_size9_certificate.json'
+      - 'c11cubed_optimal_certificate.json'
+      - 'c13cubed_optimal_certificate.json'
+      - 'c17cubed_optimal_certificate.json'
+      - 'verify_abelian_certificate.py'
+      - '.github/workflows/verify-odd-prime-rank3.yml'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Verify C7 cubed optimal certificate
+        run: python verify_abelian_certificate.py c7cubed_size9_certificate.json
+
+      - name: Verify C11 cubed optimal certificate
+        run: python verify_abelian_certificate.py c11cubed_optimal_certificate.json
+
+      - name: Verify C13 cubed optimal certificate
+        run: python verify_abelian_certificate.py c13cubed_optimal_certificate.json
+
+      - name: Verify C17 cubed optimal certificate
+        run: python verify_abelian_certificate.py c17cubed_optimal_certificate.json
