@@ -1,0 +1,72 @@
+name: Search p19 packing with KaMIS
+
+on:
+  pull_request:
+    paths:
+      - "search_p19_kamis.py"
+      - ".github/workflows/search_p19_kamis.yml"
+  workflow_dispatch:
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build p19 conflict graph
+        run: python3 search_p19_kamis.py build
+
+      - name: Build KaMIS
+        run: |
+          git clone --depth 1 --recurse-submodules https://github.com/KarlsruheMIS/KaMIS.git KaMIS
+          cd KaMIS
+          ./compile_withcmake.sh
+
+      - name: Run OnlineMIS seed 1901
+        run: |
+          ./KaMIS/deploy/online_mis p19.graph --output=p19_online_1901.txt --time_limit=120 --seed=1901 --console_log
+          python3 search_p19_kamis.py check p19_online_1901.txt --output=p19_online_1901.json
+
+      - name: Run OnlineMIS seed 1902
+        run: |
+          ./KaMIS/deploy/online_mis p19.graph --output=p19_online_1902.txt --time_limit=120 --seed=1902 --console_log
+          python3 search_p19_kamis.py check p19_online_1902.txt --output=p19_online_1902.json
+
+      - name: Run ReduMIS
+        run: |
+          ./KaMIS/deploy/redumis p19.graph --output=p19_redumis.txt --time_limit=240 --seed=1919 --console_log
+          python3 search_p19_kamis.py check p19_redumis.txt --output=p19_redumis.json
+
+      - name: Select best verified packing
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          files = list(Path('.').glob('p19_*.json'))
+          results = []
+          for p in files:
+              try:
+                  d = json.loads(p.read_text())
+              except Exception:
+                  continue
+              if isinstance(d, dict) and 'size' in d and 'indices' in d:
+                  results.append((d['size'], p, d))
+          if not results:
+              raise SystemExit('no verified KaMIS result')
+          size, path, data = max(results, key=lambda x: x[0])
+          Path('p19_best_verified.json').write_text(json.dumps(data))
+          Path('p19_summary.txt').write_text(f'best_size={size}\ntarget=361\nsource={path.name}\n')
+          print(Path('p19_summary.txt').read_text())
+          PY
+
+      - name: Upload verified search result
+        uses: actions/upload-artifact@v4
+        with:
+          name: p19-kamis-result
+          path: |
+            p19_best_verified.json
+            p19_summary.txt
+            p19_online_1901.json
+            p19_online_1902.json
+            p19_redumis.json
